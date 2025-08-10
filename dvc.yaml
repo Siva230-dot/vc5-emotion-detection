@@ -34,4 +34,4 @@ stages:
     - models/random_forest_model.pkl
     - data/interim/test_bow.csv
     outs:
-    - reports/model_evaluation.json
+    - reports//evaluation_metrics.json

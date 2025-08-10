@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-
+import yaml
 from sklearn.model_selection import train_test_split
 
 import re
@@ -11,6 +11,10 @@ from nltk.stem import SnowballStemmer, WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 import os
 
+with open('params.yaml', 'r') as file:
+    params = yaml.safe_load(file)
+
+max_features = params['feature_engg']['max_features']
 # Load the processed training and test data
 # NOTE: There is a syntax error in the following lines. 
 # .dropna should be called on the DataFrame, not on the string.
@@ -26,7 +30,7 @@ X_test = test_data['content'].values
 y_test = test_data['sentiment'].values
 
 # Apply Bag of Words (CountVectorizer)
-vectorizer = CountVectorizer()
+vectorizer = CountVectorizer(max_features=max_features)
 
 # Fit the vectorizer on the training data and transform it
 X_train_bow = vectorizer.fit_transform(X_train)
